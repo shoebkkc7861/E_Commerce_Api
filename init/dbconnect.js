@@ -1,13 +1,14 @@
-const {Sequelize,DataTypes,Model,QueryTypes,Op}=require("sequelize")
-let sequelize= new Sequelize("mysql://root:@localhost/e_commerce")
+const { Sequelize, DataTypes, Model, QueryTypes, Op } = require("sequelize")
+require("dotenv").config()
+let sequelize = new Sequelize(process.env.DB)
 
-sequelize.authenticate().then(()=>{
+sequelize.authenticate().then(() => {
     console.log("Connected To Database")
-}).catch(()=>{
+}).catch(() => {
     console.log("Not Connected to database")
 })
 
-module.exports={
+module.exports = {
     sequelize,
     DataTypes,
     Model,

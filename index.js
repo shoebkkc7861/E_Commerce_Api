@@ -7,6 +7,8 @@ let route2 = require("../e_commerce/route/admin")
 let { categoryView } = require("../e_commerce/controller/category")
 let { find_product } = require("../e_commerce/controller/product")
 let { register, login } = require("../e_commerce/controller/user")
+require("dotenv").config()
+const port = process.env.PORT
 
 
 app.use(express.json());
@@ -25,12 +27,7 @@ app.use("/api/v1/user", route);
 app.use("/api/v1/admin", route2)
 
 
-app.listen(3002, () => {
-    console.log("Connected to the server")
+app.listen(port, () => {
+    console.log(`Connected to the server ${port}`)
 })
-
-
-
-
-
 
