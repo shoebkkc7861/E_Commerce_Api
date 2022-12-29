@@ -1,4 +1,4 @@
-let {sequelize,DataTypes,Model}=require("../init/dbconnect")
+let {sequelize,DataTypes,Model,Op}=require("../init/dbconnect")
 
 class Product extends Model{}
 
@@ -59,4 +59,4 @@ Product.init({
     sequelize
 })
 
-module.exports= Product
+module.exports= {Product,Op}

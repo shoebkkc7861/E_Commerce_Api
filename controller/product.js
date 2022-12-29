@@ -3,6 +3,9 @@ let {addproduct,updateproduct,activeproduct,inactiveproduct,deleteproduct,undele
 const path=require("path");
 const { array } = require("joi");
 const app = require("../init/cors");
+let {Product}= require("../schema/product")
+let excel= require("../helper/excel");
+
 
 // async function add_product(request,response){
 //     let addpic= await uploads(request,response,"avatar",{fileSize:3*1000*1000}).catch((err)=>{
@@ -31,7 +34,6 @@ async function add_product(request,response){
     if(!addpic || addpic.error){
         return response.status(401).send({error:addpic.error})
     }
-    
     let data=[]
     for(let i of addpic.product){
         data.push(i.path)
@@ -125,6 +127,27 @@ async function find_product(request,response){
     return response.send({data:add.data})
 }
 
+async function exportProduct(request,response){
+    let productData= await Product.findAll({raw:true}).catch((err)=>{
+        return { error: err}
+    });
+    if(!productData || productData.error){
+        return response.status(500).send({error:"Internal Server Error"})
+    }
+    let columns=[
+        { header: 'id', key: 'id', width: 10 },
+        { header: 'name', key: 'name', width: 10 },
+        { header: 'quantity', key: 'quantity', width: 10 },
+        { header: 'price', key: 'price', width: 10 },
+        { header: 'discount', key: 'discounted_price', width: 10 },
+        { header: 'img_path', key: 'img_path', width: 10 },
+        { header: 'stock_alert', key: 'stock_alert', width: 10 },
+    ]
+
+    let filename= "product";
+    await excel(request,response,filename,columns,productData)
+}
+
 module.exports={
     add_product,
     update_product,
@@ -132,5 +155,7 @@ module.exports={
     inactive_product,
     delete_product,
     undelete_product,
-    find_product
+    find_product,
+    exportProduct
 }
+

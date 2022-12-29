@@ -1,14 +1,13 @@
 //const { Router } = require("express");
 let express = require("express");
 let app = express();
-let { logger } = require("../e_commerce/init/winston")
-let route = require("../e_commerce/route/user")
-let route2 = require("../e_commerce/route/admin")
-let { categoryView } = require("../e_commerce/controller/category")
-let { find_product } = require("../e_commerce/controller/product")
-let { register, login } = require("../e_commerce/controller/user")
+let { logger } = require("./init/winston")
+let route = require("./route/user")
+let { categoryView } = require("./controller/category")
+let { find_product } = require("./controller/product")
+let { register, login } = require("./controller/user")
 require("dotenv").config()
-const port = process.env.PORT
+const PORT = process.env.PORT
 
 
 app.use(express.json());
@@ -24,10 +23,9 @@ app.use("api/v1/view_product", find_product)  //getting the product
 app.use("/api/v1/view_category", categoryView) //for getting the product
 
 app.use("/api/v1/user", route);
-app.use("/api/v1/admin", route2)
 
 
-app.listen(port, () => {
-    console.log(`Connected to the server ${port}`)
+app.listen(PORT, () => {
+    console.log(`Connected to the server on ${PORT}`)
 })
 

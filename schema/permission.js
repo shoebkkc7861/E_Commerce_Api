@@ -1,24 +1,24 @@
-const { dasherize } = require("i/lib/methods")
-let{sequelize,DataTypes,Model}=require("../init/dbconnect")
 
-class Permission extends Model{}
+let { sequelize, DataTypes, Model } = require("../init/dbconnect")
+
+class Permission extends Model { }
 
 Permission.init({
-    id:{
-        type:DataTypes.INTEGER,
-        primaryKey:true,
-        autoIncrement:true,
-        allowNull:false
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
     },
-    permission:{
-        type:DataTypes.STRING,
-        allowNull:false
+    permission: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
-},{
-    modelName:"Permission",
-    tableName:"permission",
-    createdAt:false,
-    updatedAt:false,
+}, {
+    modelName: "Permission",
+    tableName: "permission",
+    createdAt: false,
+    updatedAt: false,
     sequelize
 })
 
